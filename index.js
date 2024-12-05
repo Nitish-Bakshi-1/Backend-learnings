@@ -58,6 +58,8 @@ import express from "express";
 const app = express();
 import path from "path";
 
+const users = [];
+
 // give engine like line 61 or give .ejs extension to file name like index.ejs
 // app.set("view engine", "ejs");
 
@@ -69,11 +71,19 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index");
 });
-
+app.get("/success", (req, res) => {
+  res.render("success");
+});
 app.post("/", function (req, res) {
-  console.log(req.body);
+  users.push({ username: req.body.name, email: req.body.email });
+  res.redirect("./success");
 });
 
+app.get("/users", function (req, res) {
+  res.json({
+    users,
+  });
+});
 app.listen(5000, function () {
   console.log("server is working ");
 });
