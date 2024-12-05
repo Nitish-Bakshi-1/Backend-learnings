@@ -4,9 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
+    <link href="./style.css" rel="stylesheet"></link>
   </head>
   <body>
-    <h1>Hi</h1>
-    <p>its <%=locals.name%></p>
+    <div>
+      <form method="get" action="/">
+        <input type="text" placeholder="name" />
+        <input type="email" placeholder="email" />
+        <button>click me !</button>
+      </form>
+    </div>
   </body>
 </html>

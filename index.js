@@ -62,11 +62,16 @@ import path from "path";
 // app.set("view engine", "ejs");
 
 app.use(express.static(path.join(path.resolve(), "public")));
+app.use(express.urlencoded({ extended: true }));
 
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
   res.render("index");
+});
+
+app.post("/", function (req, res) {
+  console.log(req.body);
 });
 
 app.listen(5000, function () {
