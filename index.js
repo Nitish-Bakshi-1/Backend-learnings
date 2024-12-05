@@ -57,7 +57,20 @@ app.listen(5000, function () {
 import express from "express";
 const app = express();
 import path from "path";
+import mongoose, { Schema } from "mongoose";
 
+// mongoose
+mongoose
+  .connect("mongodb+srv://admin:2k9SlYj4HLGfSltI@cluster0.j7jusce.mongodb.net/")
+  .then(() => {
+    console.log("hella yea mongoose connected");
+  });
+const messageSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+});
+
+const Message = mongoose.model("Message", messageSchema);
 const users = [];
 
 // give engine like line 61 or give .ejs extension to file name like index.ejs
@@ -65,25 +78,16 @@ const users = [];
 
 app.use(express.static(path.join(path.resolve(), "public")));
 app.use(express.urlencoded({ extended: true }));
-
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", function (req, res) {
+  res.redirect("login");
 });
-app.get("/success", (req, res) => {
-  res.render("success");
-});
-app.post("/", function (req, res) {
-  users.push({ username: req.body.name, email: req.body.email });
-  res.redirect("./success");
+app.post("/login", function (req, res) {
+  res.cookie("token", "iamin");
+  res.redirect("/");
 });
 
-app.get("/users", function (req, res) {
-  res.json({
-    users,
-  });
-});
 app.listen(5000, function () {
   console.log("server is working ");
 });
