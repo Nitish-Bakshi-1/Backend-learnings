@@ -27,6 +27,8 @@ server.listen(5000, function () {
 });*/
 
 /* **************************************************how express works*/
+/*
+
 import fs from "fs";
 import path from "path";
 
@@ -42,6 +44,29 @@ app.get("/", (req, res) => {
   const finalPath = path.join(way, "./index.html");
   console.log(finalPath);
   res.sendFile(finalPath);
+});
+
+app.listen(5000, function () {
+  console.log("server is working ");
+});
+
+
+*/
+/************************************************EJS************************/
+
+import express from "express";
+const app = express();
+import path from "path";
+
+// give engine like line 61 or give .ejs extension to file name like index.ejs
+// app.set("view engine", "ejs");
+
+app.use(express.static(path.join(path.resolve(), "public")));
+
+app.set("view engine", "ejs");
+
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 app.listen(5000, function () {
